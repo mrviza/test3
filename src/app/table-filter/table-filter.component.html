@@ -1,1 +1,70 @@
-<p>table-filter works!</p>
+<div class="table-filter">
+  <form
+    class="table-filter__form"
+    id="forms"
+    [ngClass]="{ 'table-filter__form--fold': isFold }"
+    [formGroup]="filterForm"
+    (ngSubmit)="onSubmit($event)"
+  >
+    <label class="table-filter__form-item">
+      Номер отправления
+      <input type="text" onlyNumbers maxlength="10" formControlName="number" />
+    </label>
+    <label class="table-filter__form-item">
+      Тип
+      <select *ngIf="types" formControlName="type">
+        <option value="">Все</option>
+        <option *ngFor="let type of types.items; index as i" [value]="type">
+          {{ type }}
+        </option>
+      </select>
+    </label>
+    <label class="table-filter__form-item">
+      Статус
+      <select *ngIf="statuses" formControlName="status">
+        <option value="">Все</option>
+        <option
+          *ngFor="let status of statuses.items; index as i"
+          [value]="status"
+        >
+          {{ status }}
+        </option>
+      </select>
+    </label>
+    <label class="table-filter__form-item table-filter__form-item--row">
+      <input type="checkbox" formControlName="problems" />
+      Только поблемные
+    </label>
+  </form>
+  <div class="table-filter__btns">
+    <button class="table-filter__btn" type="submit" (click)="onSubmit($event)">
+      Найти
+    </button>
+    <button class="table-filter__btn" type="reset" (click)="onClear()">
+      Очистить
+    </button>
+    <button
+      class="table-filter__btn table-filter__fold-btn"
+      [ngClass]="{ 'table-filter__fold-btn--fold': isFold }"
+      (click)="onToggle()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        version="1.1"
+        x="0px"
+        y="0px"
+        width="960px"
+        height="560px"
+        viewBox="0 0 960 560"
+        xml:space="preserve"
+      >
+        <g id="Rounded_Rectangle_33_copy_4_1_">
+          <path
+            d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937   c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937   c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"
+          />
+        </g>
+      </svg>
+    </button>
+  </div>
+</div>

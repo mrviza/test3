@@ -1,3 +1,15 @@
 <div>
-  <grid-table [data]="tableData"></grid-table>
+  <table-filter
+    [types]="deliveryTypes"
+    [statuses]="deliveryStatuses"
+    [isFold]="!isFilterShow"
+    (filterChangeEvent)="changeFilter($event)"
+    (filterToggleEvent)="toggleFilter()"
+  ></table-filter>
+  <grid-table
+    [data]="tableData"
+    [filter]="filterData"
+    (rowSelectedEvent)="selectRow($event)"
+  ></grid-table>
+  <info [info]="delviryData" [isFold]="isFilterShow" ></info>
 </div>

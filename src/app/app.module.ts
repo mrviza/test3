@@ -6,19 +6,25 @@ import { AppComponent } from './app.component';
 import { TableComponent } from './table/grid-table.component';
 import { InfoComponent } from './info/info.component';
 import { TableFilterComponent } from './table-filter/table-filter.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { OnlyNumbersDirective } from './app.derictives';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
     InfoComponent,
-    TableFilterComponent
+    TableFilterComponent,
+    OnlyNumbersDirective,
   ],
   imports: [
     BrowserModule,
-    AgGridModule.withComponents([])
+    CommonModule,
+    AgGridModule.withComponents([]),
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

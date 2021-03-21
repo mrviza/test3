@@ -1,7 +1,16 @@
-import { Component, OnChanges, Input } from '@angular/core';
-import { ValueFormatterParams } from 'ag-grid-community';
-import { Delivery } from '../app.d';
-import { TableRowData } from './grid-table.component.d';
+import {
+  Component,
+  OnChanges,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
+import { Delivery, FilterData } from '../app.d';
+import {
+  TableRowData,
+  IRowSelectedEvent,
+  IValueFormatterParams,
+} from './grid-table.component.d';
 
 @Component({
   selector: 'grid-table',
@@ -10,6 +19,8 @@ import { TableRowData } from './grid-table.component.d';
 })
 export class TableComponent implements OnChanges {
   @Input() data: Delivery[] = [];
+  @Input() filter?: FilterData;
+  @Output() rowSelectedEvent = new EventEmitter<Delivery>();
 
   columnDefs = [
     { field: 'sendingDate', sortable: true, valueFormatter: this.dateFormater },
@@ -32,8 +43,9 @@ export class TableComponent implements OnChanges {
   constructor() {}
 
   ngOnChanges(): void {
-    this.rowData = this.data.map((el) => {
-      return {
+    const reducer = (acc: TableRowData[], el: Delivery, index: number) => {
+      const value: TableRowData = {
+        index,
         sendingDate: el.sendingDate,
         number: el.departureDetails.number,
         status: el.status,
@@ -44,16 +56,44 @@ export class TableComponent implements OnChanges {
         receiverCity: el.receiver.city,
         receivingDate: el.receivingDate,
       };
-    });
+
+      if (!this.filter) {
+        acc.push(value);
+        return acc;
+      }
+
+      const isNumberCorrect =
+        !this.filter.number || this.filter.number === value.number;
+      const isStatusCorrect =
+        !this.filter.status || this.filter.status === value.status;
+      const isTypeCorrect =
+        !this.filter.type || this.filter.type === value.type;
+      const isProblems = !this.filter.problems || value.problems;
+
+      if (isNumberCorrect && isStatusCorrect && isTypeCorrect && isProblems) {
+        acc.push(value);
+      }
+
+      return acc;
+    };
+
+    this.rowData = this.data.reduce(reducer, []);
   }
 
-  dateFormater(data: ValueFormatterParams): string {
+  rowSelected(event: IRowSelectedEvent<TableRowData>) {
+    const index = event.data.index;
+    const rowFullData = this.data[index];
+
+    this.rowSelectedEvent.emit(rowFullData);
+  }
+
+  dateFormater(data: IValueFormatterParams<string>): string {
     const res = new Date(data.value).toLocaleDateString('ru-RU');
 
     return res;
   }
 
-  booleanFormater(data: ValueFormatterParams): string {
+  booleanFormater(data: IValueFormatterParams<boolean>): string {
     const res = data.value ? 'да' : 'нет';
 
     return res;

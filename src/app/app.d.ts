@@ -32,3 +32,10 @@ interface Receiver extends Sender {
 export interface DeliveryImportData {
   items: string[];
 }
+
+export interface FilterData {
+  number?: string;
+  type?: string;
+  status?: string;
+  problems?: boolean;
+}

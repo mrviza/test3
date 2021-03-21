@@ -2,9 +2,10 @@
   <ag-grid-angular
     style="max-width: 100%; height: 500px"
     class="ag-theme-alpine"
+    rowSelection="single"
     [rowData]="rowData"
     [columnDefs]="columnDefs"
-    rowSelection='single'
+    (rowSelected)="rowSelected($event)"
   >
   </ag-grid-angular>
 </div>

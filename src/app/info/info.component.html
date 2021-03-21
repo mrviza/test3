@@ -1,1 +1,84 @@
-<p>info works!</p>
+<div *ngIf="info" class="info" [ngClass]="{ 'info--hidden': isFold }">
+  <div class="info__block w50">
+    <div class="info__state">
+      <p class="info__state-text">Статус</p>
+      <p class="info__state-text info__state-text--desc">{{ info.status }}</p>
+    </div>
+    <div class="info__state">
+      <p class="info__state-text">Местонахождение</p>
+      <p class="info__state-text info__state-text--desc">
+        {{ info.qurrentPosition }}
+      </p>
+    </div>
+    <div class="info__state">
+      <p class="info__state-text">Получатель</p>
+      <p class="info__state-text info__state-text--desc">
+        {{ info.receiverName }}
+      </p>
+    </div>
+    <div class="info__state">
+      <p class="info__state-text">Моб. телефон</p>
+      <p class="info__state-text info__state-text--desc">
+        {{ info.receiverPhone }}
+      </p>
+    </div>
+    <div class="info__state">
+      <p class="info__state-text">Курьер</p>
+      <p class="info__state-text info__state-text--desc">
+        {{ info.courierName }}
+      </p>
+    </div>
+    <div class="info__state">
+      <p class="info__state-text">Телефон курьера</p>
+      <p class="info__state-text info__state-text--desc">
+        {{ info.courierPhone }}
+      </p>
+    </div>
+    <div class="info__state">
+      <p class="info__state-text">Примечание</p>
+      <p class="info__state-text info__state-text--desc">{{ info.note }}</p>
+    </div>
+  </div>
+  <div class="info__block w25">
+    <div class="info__state">
+      <p class="info__state-text">Номер отправления</p>
+      <p class="info__state-text info__state-text--desc">{{ info.number }}</p>
+    </div>
+    <div class="info__state">
+      <p class="info__state-text">Тип</p>
+      <p class="info__state-text info__state-text--desc">{{ info.type }}</p>
+    </div>
+    <div class="info__state">
+      <p class="info__state-text">Отправитель</p>
+      <p class="info__state-text info__state-text--desc">
+        {{ info.senderName }}
+      </p>
+    </div>
+    <div class="info__state">
+      <p class="info__state-text">Плательщик</p>
+      <p class="info__state-text info__state-text--desc">
+        {{ info.payerName }}
+      </p>
+    </div>
+  </div>
+  <div class="info__block w25">
+    <div class="info__state">
+      <p class="info__state-text">Дата отправления</p>
+      <p class="info__state-text info__state-text--desc">
+        {{ info.sendingDate }}
+      </p>
+    </div>
+    <div class="info__state">
+      <p class="info__state-text">Дата доставки</p>
+      <p class="info__state-text info__state-text--desc">
+        {{ info.receivingDate }}
+      </p>
+    </div>
+    <div class="info__state">
+      <p class="info__state-text">Срок хранения на складе</p>
+      <p class="info__state-text info__state-text--desc">
+        {{ info.storagePeriod }}
+      </p>
+    </div>
+  </div>
+</div>

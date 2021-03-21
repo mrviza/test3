@@ -1,0 +1,60 @@
+.table-filter {
+  &__form {
+    display: flex;
+    align-items: flex-end;
+    height: 48px;
+    transition-duration: 300ms;
+    overflow-y: hidden;
+
+    &--fold {
+      height: 0;
+    }
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      margin-right: 24px;
+      width: 25%;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &--row {
+        flex-direction: row;
+      }
+    }
+  }
+
+  &__btns {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-bottom: 8px;
+    margin-top: 8px;
+  }
+  
+  &__btn {
+    height: 28px;
+    margin-left: 24px;
+  }
+
+  &__fold-btn {
+    width: 28px;
+    padding: 0;
+
+    svg {
+      transition-duration: 300ms;
+      width: 24px;
+      height: 24px;
+      transform: rotateZ(180deg);
+    }
+
+    &--fold {
+      svg {
+        transform: rotateZ(360deg);
+      }
+    }
+  }
+}
